@@ -1,0 +1,154 @@
+/* assets/style.css */
+
+/* 1. Definir variables de color (Tema Rojo) */
+:root {
+  --lamorena-red: #d9232d; 
+  --lamorena-red-darker: #b02a30;
+  --lamorena-dark-text: #333;
+  --lamorena-light-text: #6c757d;
+  --lamorena-bg: #f8f9fa;
+  --lamorena-border: #dee2e6;
+  --lamorena-white: #FFFFFF;
+}
+
+/* 2. Estilos Globales y Tipografía */
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--lamorena-bg);
+  color: var(--lamorena-dark-text);
+}
+
+/* 3. Estilo del Header Personalizado */
+.app-header-wrapper {
+  background-color: var(--lamorena-white);
+  border-top: 4px solid var(--lamorena-red);
+  border-bottom: 1px solid var(--lamorena-border);
+}
+.app-header {
+  padding: 0.5rem 0;
+  background-color: var(--lamorena-white) !important;
+}
+.header-logo {
+  height: 40px;
+}
+.header-nav .nav-link {
+  color: var(--lamorena-light-text);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.8rem;
+  transition: color 0.15s ease-in-out;
+}
+.header-nav .nav-link.active,
+.header-nav .nav-link:hover {
+  color: var(--lamorena-red);
+}
+.header-nav .nav-link-logout {
+  color: var(--lamorena-light-text); 
+}
+.header-nav .nav-link-logout:hover {
+  color: var(--lamorena-red);
+}
+
+/* 4. Estilo de Títulos */
+h1, h2, h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  color: var(--lamorena-red);
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+h4, h5, h6, .card-header {
+   font-family: 'Lato', sans-serif;
+   font-weight: 700;
+   color: var(--lamorena-dark-text);
+   text-align: left;
+}
+
+/* 5. Estilo de Botones (Rojos y Redondeados) */
+.btn-primary, .btn-success {
+  background-color: var(--lamorena-red);
+  border-color: var(--lamorena-red);
+  color: var(--lamorena-white);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+.btn-primary:hover, .btn-success:hover {
+  background-color: var(--lamorena-red-darker);
+  border-color: var(--lamorena-red-darker);
+  color: var(--lamorena-white);
+}
+.btn-outline-success { color: var(--lamorena-red); border-color: var(--lamorena-red); border-radius: 0; }
+.btn-outline-success:hover, .btn-success:not(.btn-outline-success) { background-color: var(--lamorena-red); border-color: var(--lamorena-red); color: white; }
+.btn-outline-danger { border-radius: 0; }
+
+/* 6. Estilo de Tarjetas (Cards) */
+.card {
+  border: none;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+}
+.card-header {
+  background-color: var(--lamorena-light-gray);
+  border-bottom: 1px solid var(--lamorena-border);
+}
+.card-body h5.card-title { font-size: 1rem; font-weight: 700; color: var(--lamorena-dark-text); text-transform: none; text-align: left; }
+.card-body h3.card-text { font-size: 2rem; font-weight: 700; color: var(--lamorena-dark-text); text-align: left; }
+
+/* 7. Estilos Responsive (Menú Hamburguesa) */
+.navbar-toggler {
+  border-color: rgba(0,0,0,0.1);
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(217, 35, 45, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+@media (max-width: 991.98px) {
+  .header-nav { width: 100%; text-align: left; padding-top: 1rem; }
+  .header-nav .nav-link { padding: 0.75rem 0.5rem; font-size: 1rem; border-bottom: 1px solid var(--lamorena-border); }
+  .header-nav .nav-link:last-child { border-bottom: none; }
+  .header-nav .nav-link.active, .header-nav .nav-link:hover { color: var(--lamorena-red); background-color: var(--lamorena-light-gray); }
+  .container, .container-fluid { padding-left: 0.5rem; padding-right: 0.5rem; }
+}
+
+/* --- 8. ESTILOS DE FILTROS (NUEVO) --- */
+
+/* Esto fuerza al componente Dropdown (que es un div con .h-100)
+   y a su control interno (.Select-control) a 
+   ocupar el 100% de la altura de la columna 
+   (cuya altura es forzada por 'align_items_stretch=True' en el dbc.Row).
+*/
+.h-100.Select,
+.h-100 .Select-control {
+  height: 100%;
+  min-height: 38px; /* Altura mínima estándar de un input de Bootstrap */
+}
+
+/* Asegura que el DatePickerRange (que es más complejo)
+   también ocupe el 100% de la altura disponible.
+*/
+.DateRangePicker {
+    height: 100%;
+}
+.DateRangePickerInput {
+    height: 100%;
+    width: 100%;
+    display: flex; /* Flex para estirar los inputs internos */
+}
+.DateRangePickerInput_arrow {
+    align-self: center; /* Centra la flecha */
+}
+.DateInput {
+    height: 100%;
+    width: 100%;
+    flex-grow: 1; /* Permite que los inputs crezcan */
+}
+.DateInput_input {
+    height: 100%;
+    max-height: 38px; /* Altura mínima */
+    box-sizing: border-box; /* Asegura que el padding no rompa la altura */
+    width: 100% !important; /* Forzar ancho */
+}

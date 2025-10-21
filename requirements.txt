@@ -1,0 +1,14 @@
+dash
+dash-bootstrap-components
+dash-core-components
+dash-html-components
+dash-table
+pandas
+plotly
+psycopg2-binary
+psycopg2-pool
+flask-login          # Para manejar sesiones de usuario
+bcrypt               # Para contraseñas
+requests             # Para llamar a la API del ERP
+python-dotenv        # Para leer el archivo .env
+gunicorn             # Para producción
