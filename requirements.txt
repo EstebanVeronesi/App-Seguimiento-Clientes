@@ -12,3 +12,6 @@ bcrypt               # Para contraseñas
 requests             # Para llamar a la API del ERP
 python-dotenv        # Para leer el archivo .env
 gunicorn             # Para producción
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib

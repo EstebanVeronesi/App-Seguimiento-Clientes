@@ -80,17 +80,24 @@ class CrmRepository:
     @staticmethod
     def get_dashboard_data(filters: dict):
         """
-        Obtiene los datos crudos para el dashboard (sin kg_vendidos).
-        Maneja su propia conexión. Filtro ZONA ELIMINADO.
+        Obtiene los datos crudos para el dashboard.
+        MODIFICADO: Simplifica conversión de zona horaria de fecha_interaccion.
         """
         conn = None
         try:
             conn = get_db_connection()
             with conn.cursor(cursor_factory=DictCursor) as cur:
+                # --- MODIFICACIÓN: Simplificar conversión ---
                 query = """
                   SELECT
-                    i.id, i.fecha_interaccion, i.tipo_interaccion, i.llamada_concretada, i.respuesta_cliente,
-                    i.fecha_prox_seguimiento, i.venta_cerrada,
+                    i.id,
+                    -- Asume que PG sabe la zona horaria original o usa la del server,
+                    -- y convierte directamente a Argentina.
+                    i.fecha_interaccion AT TIME ZONE 'America/Argentina/Buenos_Aires' AS fecha_interaccion,
+                    i.tipo_interaccion, i.llamada_concretada, i.respuesta_cliente,
+                    -- Convertir también fecha_prox_seguimiento si existe
+                    i.fecha_prox_seguimiento AT TIME ZONE 'America/Argentina/Buenos_Aires' AS fecha_prox_seguimiento,
+                    i.venta_cerrada,
                     i.motivo_no_venta, i.ofrecio_otros_precios, i.cliente_conoce_catalogo, i.le_llego_bien_pedido,
                     i.comentarios_venta, i.cliente_informo_pago, i.reviso_cta_cte, i.comentarios_cobranza,
                     i.fk_vendedor_dni,

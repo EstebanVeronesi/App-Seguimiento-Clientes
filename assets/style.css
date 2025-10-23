@@ -2,13 +2,14 @@
 
 /* 1. Definir variables de color (Tema Rojo) */
 :root {
-  --lamorena-red: #d9232d; 
+  --lamorena-red: #d9232d;
   --lamorena-red-darker: #b02a30;
   --lamorena-dark-text: #333;
   --lamorena-light-text: #6c757d;
   --lamorena-bg: #f8f9fa;
   --lamorena-border: #dee2e6;
   --lamorena-white: #FFFFFF;
+  --lamorena-light-gray: #f8f9fa; /* Añadido para card header */
 }
 
 /* 2. Estilos Globales y Tipografía */
@@ -18,18 +19,32 @@ body {
   color: var(--lamorena-dark-text);
 }
 
-/* 3. Estilo del Header Personalizado */
+/* 3. Estilo del Header Personalizado (General) */
 .app-header-wrapper {
   background-color: var(--lamorena-white);
   border-top: 4px solid var(--lamorena-red);
   border-bottom: 1px solid var(--lamorena-border);
 }
 .app-header {
-  padding: 0.5rem 0;
-  background-color: var(--lamorena-white) !important;
+  padding: 0.5rem 0; /* Padding vertical base */
+  background-color: var(--lamorena-white) !important; /* Fondo blanco general */
 }
+/* Quitar padding horizontal por defecto del container fluid DENTRO del app-header */
+/* Esto asegura que el fondo del navbar llegue a los bordes */
+.app-header > .navbar > .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+/* Re-aplicar padding al contenido DENTRO del container si es necesario */
+/* (Bootstrap usualmente maneja esto con Row/Col, pero por si acaso) */
+.app-header > .navbar > .container-fluid > * {
+    padding-left: 15px; /* Padding estándar de Bootstrap container */
+    padding-right: 15px;
+}
+
+
 .header-logo {
-  height: 40px;
+  height: 40px; /* Tamaño base del logo */
 }
 .header-nav .nav-link {
   color: var(--lamorena-light-text);
@@ -44,7 +59,7 @@ body {
   color: var(--lamorena-red);
 }
 .header-nav .nav-link-logout {
-  color: var(--lamorena-light-text); 
+  color: var(--lamorena-light-text);
 }
 .header-nav .nav-link-logout:hover {
   color: var(--lamorena-red);
@@ -86,6 +101,9 @@ h4, h5, h6, .card-header {
 .btn-outline-success { color: var(--lamorena-red); border-color: var(--lamorena-red); border-radius: 0; }
 .btn-outline-success:hover, .btn-success:not(.btn-outline-success) { background-color: var(--lamorena-red); border-color: var(--lamorena-red); color: white; }
 .btn-outline-danger { border-radius: 0; }
+/* Añadir estilo para btn-info si lo usas */
+.btn-info { border-radius: 20px; }
+
 
 /* 6. Estilo de Tarjetas (Cards) */
 .card {
@@ -96,8 +114,8 @@ h4, h5, h6, .card-header {
   background-color: var(--lamorena-light-gray);
   border-bottom: 1px solid var(--lamorena-border);
 }
-.card-body h5.card-title { font-size: 1rem; font-weight: 700; color: var(--lamorena-dark-text); text-transform: none; text-align: left; }
-.card-body h3.card-text { font-size: 2rem; font-weight: 700; color: var(--lamorena-dark-text); text-align: left; }
+.card-body h5.card-title { font-size: 1rem; font-weight: 700; color: var(--lamorena-dark-text); text-transform: none; text-align: left; margin-bottom: 0.5rem; } /* Ajuste margen */
+.card-body h3.card-text { font-size: 2rem; font-weight: 700; color: var(--lamorena-dark-text); text-align: left; margin-top: 0; } /* Ajuste margen */
 
 /* 7. Estilos Responsive (Menú Hamburguesa) */
 .navbar-toggler {
@@ -114,41 +132,26 @@ h4, h5, h6, .card-header {
   .container, .container-fluid { padding-left: 0.5rem; padding-right: 0.5rem; }
 }
 
-/* --- 8. ESTILOS DE FILTROS (NUEVO) --- */
-
-/* Esto fuerza al componente Dropdown (que es un div con .h-100)
-   y a su control interno (.Select-control) a 
-   ocupar el 100% de la altura de la columna 
-   (cuya altura es forzada por 'align_items_stretch=True' en el dbc.Row).
-*/
+/* --- 8. ESTILOS DE FILTROS --- */
 .h-100.Select,
 .h-100 .Select-control {
   height: 100%;
-  min-height: 38px; /* Altura mínima estándar de un input de Bootstrap */
+  min-height: 38px;
 }
+.DateRangePicker { height: 100%; }
+.DateRangePickerInput { height: 100%; width: 100%; display: flex; }
+.DateRangePickerInput_arrow { align-self: center; }
+.DateInput { height: 100%; width: 100%; flex-grow: 1; }
+.DateInput_input { height: 100%; max-height: 38px; box-sizing: border-box; width: 100% !important; }
 
-/* Asegura que el DatePickerRange (que es más complejo)
-   también ocupe el 100% de la altura disponible.
-*/
-.DateRangePicker {
-    height: 100%;
-}
-.DateRangePickerInput {
-    height: 100%;
-    width: 100%;
-    display: flex; /* Flex para estirar los inputs internos */
-}
-.DateRangePickerInput_arrow {
-    align-self: center; /* Centra la flecha */
-}
-.DateInput {
-    height: 100%;
-    width: 100%;
-    flex-grow: 1; /* Permite que los inputs crezcan */
-}
-.DateInput_input {
-    height: 100%;
-    max-height: 38px; /* Altura mínima */
-    box-sizing: border-box; /* Asegura que el padding no rompa la altura */
-    width: 100% !important; /* Forzar ancho */
+
+/* --- 9. ESTILOS ADICIONALES PARA HEADER DEL LOGIN --- */
+
+/* Hacer el logo más grande */
+.login-header-logo {
+  height: 70px; /* O el tamaño que prefieras */
+  display: block !important; /* Forzar a que sea un bloque */
+  margin-left: auto !important; /* Margen izquierdo automático */
+  margin-right: auto !important; /* Margen derecho automático */
+  margin-bottom: 2rem; /* Espacio debajo del logo */
 }
